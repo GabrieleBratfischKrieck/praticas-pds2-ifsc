@@ -2,11 +2,48 @@ package controle;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import modelo.Produtos;
 
 public class ProdutosDAO {
+	
+	public ArrayList <Produtos> listar (){
+ Conexao c = Conexao.getInstancia();
+		
+		Connection con = c.conectar();
+		ArrayList<Produtos> produtos = new ArrayList ();
+		
+		String query = "SELECT * FROM produtos" ;
+		try {
+			PreparedStatement ps = con.prepareStatement(query);
+			
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				int idProdutos = rs.getInt("id_produtos");
+				 String primeiroNome = rs.getString("primeiro_nome");
+				 
+				 Produtos p = new Produtos();
+				 p.setIdProdutos(idProdutos);
+				 p.setNomeProdutos(primeiroNome);
+				 
+				 produtos.add(p);
+			}
+			
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		c.fecharConexao();
+		
+		return produtos;
+	}
+	
+	
+	
 
 	public boolean inserir(Produtos p) {
 		

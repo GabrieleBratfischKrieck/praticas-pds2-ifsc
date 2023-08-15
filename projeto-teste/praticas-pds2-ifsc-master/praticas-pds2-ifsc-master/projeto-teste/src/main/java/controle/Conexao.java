@@ -13,7 +13,7 @@ package controle;
 			
 			public Conexao() {}
 			
-			public static Conexao getInstacia() {
+			public static Conexao getInstancia1() {
 				if (instancia == null) { 
 					instancia = new Conexao(); 
 				}
@@ -39,6 +39,11 @@ package controle;
 				}
 
 				return true;
+			}
+
+			public static Conexao getInstancia() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 	}
 
