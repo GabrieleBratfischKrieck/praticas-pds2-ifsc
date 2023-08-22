@@ -64,7 +64,49 @@ public class ProdutosDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	
 		return false;
 	}
-}
+		public boolean excluir (Produtos p) {
+			Conexao c = Conexao.getInstancia();
+			Connection con = c.conectar();
+			
+			String query = "Delete from produtos where id_produtos = ?";
+			try {
+				PreparedStatement ps = con.prepareStatement(query);
+				ps.setInt(1,p.getIdProdutos());
+				ps.executeUpdate();
+				
+				c.fecharConexao();
+				
+				return true;
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return false;
+		}
+		
+		public boolean atualizar (Produtos p) {
+			Conexao c = Conexao.getInstancia();
+			Connection con = c.conectar();
+			
+			String query = "Update produtos set" + "NomeProdutos = Where id_produtos = ?";
+			try {
+				PreparedStatement ps = con.prepareStatement(query);
+				ps.setString(1,p.getNomeProdutos());
+				ps.setInt(2,p.getIdProdutos());
+				
+				ps.executeUpdate();
+				
+				c.fecharConexao();
+				return true;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return false;
+		}
+	}
+
